@@ -2,7 +2,7 @@
 
 ### **Description**
 
-**SellOut** is a full-stack web application designed to simulate an online marketplace for electronics, leveraging Best Buy's API. Built with the MERN stack (MongoDB, Express, React, Node.js), it features authentication, CRUD operations, advanced product search and filtering, and a shopping cart system. This project aims to provide a practical learning experience in developing and deploying a real-world application.
+**SellOut** is a full-stack web application designed to simulate an online marketplace for electronics, leveraging Best Buy's API. Built with the MERN stack (MongoDB, Express, React, Node.js), it features authentication, CRUD operations, advanced product search and filtering, and a shopping cart system.
 
 ### **Technologies Used**
 
