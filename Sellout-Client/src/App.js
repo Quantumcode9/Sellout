@@ -20,7 +20,7 @@ import Cart from './components/cart/Cart'
 import SoundbarCreate from './components/soundbar/SoundbarCreate';
 import SoundbarShow from './components/soundbar/SoundbarShow/SoundbarShow';
 import SoundbarIndex from './components/soundbar/SoundbarIndex';
-import SearchProducts from './components/shared/Search';
+import Search from './components/shared/Search';
 
 
 const App = () => {
@@ -137,9 +137,13 @@ const App = () => {
 					   </RequireAuth>
 				   }
 				/>
-				<Route path='/search' render={() => (
-                <SearchProducts />
-                )} />
+				<Route 
+					path='/search'
+					element={
+						<Search user={user} msgAlert={msgAlert}/>
+					}
+				/>
+             
 			</Routes>
 
 			

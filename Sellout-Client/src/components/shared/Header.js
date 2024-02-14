@@ -32,6 +32,11 @@ const authenticatedOptions = (
 				Sign Out
 			</Link>
 		</Nav.Item>
+		<Nav.Item className='m-2'>
+			<Link to='/search' style={linkStyle}>
+				Search
+			</Link>
+		</Nav.Item>
 	</>
 )
 

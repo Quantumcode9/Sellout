@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { searchProducts } from '../../api/product';
 
-const SearchProducts = () => {
-    const [keyword, setKeyword] = useState('');
+
+const Search = () => {
+    const [keyword, setKeyword] = useState(''); 
     const [products, setProducts] = useState([]);
-
-    const handleSearch = async (e) => {
-        e.preventDefault(); 
-        try {
-            const response = await axios.get(`/search/${keyword}`);
-            setProducts(response.data);
-        } catch (error) {
-            console.error('Failed to search products:', error);
-        }
+  
+    const handleSearch = (event) => { 
+      event.preventDefault();
+      searchProducts(keyword)
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error('The error was:', error);
+        });
     };
-
     return (
         <div>
             <form onSubmit={handleSearch}>
@@ -22,7 +23,7 @@ const SearchProducts = () => {
                     type="text"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
-                    placeholder="Search for products"
+                    placeholder="Search"
                 />
                 <button type="submit">Search</button>
             </form>
@@ -40,4 +41,4 @@ const SearchProducts = () => {
     );
 };
 
-export default SearchProducts;
+export default Search;
