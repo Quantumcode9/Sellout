@@ -3,6 +3,7 @@ const express = require('express')
 const passport = require('passport')
 
 const TV = require('../models/TV')
+const Review = TV.Review;
 
 const customErrors = require('../../lib/custom_errors')
 
@@ -20,6 +21,9 @@ const router = express.Router()
 
 
 
+
+  
+
 router.post('/tvs', requireToken, (req, res, next) => {
 	req.body.tv.owner = req.user.id
 	TV.create(req.body.tv)
@@ -30,6 +34,10 @@ router.post('/tvs', requireToken, (req, res, next) => {
 		})
 		.catch(next)
 })
+
+
+
+
 
 
 // INDEX
@@ -95,5 +103,48 @@ router.delete('/tvs/:id', requireToken, (req, res, next) => {
 		.then(() => res.sendStatus(204))
 		.catch(next)
 })
+
+
+
+
+// CREATE REVIEW
+
+router.post('/tvs/:id/reviews', requireToken, (req, res, next) => {
+	const reviewData = req.body.review;
+	const tvId = req.params.id;
+  
+	TV.findById(tvId)
+	  .then(handle404)
+	  .then(tv => {
+		tv.reviews.push(reviewData);
+		return tv.save();
+	  })
+	  .then(tv => res.status(201).json({ tv: tv.toObject() }))
+	  .catch(next);
+  });
+
+
+  // UPDATE REVIEW
+router.patch('/tvs/:tvId/reviews/:reviewId', requireToken, removeBlanks, (req, res, next) => {
+	const { tvId, reviewId } = req.params;
+  
+	TV.findById(tvId)
+	  .then(handle404)
+	  .then(tv => {
+		const theReview = tv.reviews.id(reviewId);
+		requireOwnership(req, theReview);
+  
+		theReview.set(req.body.review);
+  
+		return tv.save();
+	  })
+	  .then(() => res.sendStatus(204))
+	  .catch(next);
+  }
+  );
+
+
+
+
 
 module.exports = router

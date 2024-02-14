@@ -13,8 +13,7 @@ export const getOneTV = (id) => {
 }
 
 // CREATE -> Add a tv
-// API calls with axios that are not a simple GET, require a config object
-// that config object needs a url, method, and any auth headers if necessary
+
 export const createTV = (user, newTV) => {
     return axios({
         url: `${apiUrl}/tvs`,
@@ -48,3 +47,57 @@ export const removeTV = (user, id) => {
         }
     })
 }
+
+// POST request to add a soundbar to a tv
+
+export const addSoundbar = (tvId, user, newSoundbar) => {
+    return axios({
+        url: `${apiUrl}/soundbars/${tvId}`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: { soundbar: newSoundbar }
+    })
+}
+// REVIEWS
+// POST REVIEW
+export const createReview = (tvId, user, newReview) => {
+    return axios({
+      url: `${apiUrl}/tvs/${tvId}/reviews`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      },
+      data: { 
+        review: {
+          ...newReview,
+          user: user._id, 
+          name: user.name 
+        } 
+      }
+    });
+  };
+
+  // UPDATE REVIEW
+    export const updateReview = (tvId, user, updatedReview) => {
+        return axios({
+        url: `${apiUrl}/tvs/${tvId}/reviews/${updatedReview._id}`,
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${user.token}`
+        },
+        data: { review: updatedReview }
+        });
+    };
+
+    // DELETE: Set a review free
+    export const removeReview = (tvId, user, reviewId) => {
+        return axios({
+        url: `${apiUrl}/tvs/${tvId}/reviews/${reviewId}`,
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${user.token}`
+        }
+        });
+    };

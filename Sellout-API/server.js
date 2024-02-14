@@ -8,6 +8,8 @@ const tvRoutes = require('./app/routes/tv_routes')
 const soundbarRoutes = require('./app/routes/soundbar_routes')
 const userRoutes = require('./app/routes/user_routes')
 const cartRoutes = require('./app/routes/cart_routes')
+const productRoutes = require('./app/routes/product_routes')
+
 
 // require middleware
 const errorHandler = require('./lib/error_handler')
@@ -50,6 +52,7 @@ app.use(tvRoutes)
 app.use(soundbarRoutes)
 app.use(userRoutes)
 app.use(cartRoutes)
+app.use(productRoutes)
 
 app.use(errorHandler)
 

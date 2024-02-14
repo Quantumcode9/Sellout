@@ -28,12 +28,12 @@ const SoundbarForm = (props) => {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
-            <Form.Label>Model</Form.Label>
+            <Form.Label>Model Number</Form.Label>
             <Form.Control
                 type="text"
-                placeholder="Enter Model"
-                name="model"
-                value={props.soundbar.model}
+                placeholder="Enter Model Number"
+                name="modelNumber"
+                value={props.soundbar.modelNumber}
                 onChange={props.handleChange}
             />
             </Form.Group>
@@ -59,7 +59,16 @@ const SoundbarForm = (props) => {
                 onChange={props.handleChange}
             />
             </Form.Group>
-    
+            <Form.Group controlId="formBasicEmail">
+            <Form.Label>Image 2</Form.Label>
+            <Form.Control
+                type="text"
+                placeholder="Enter Image URL"
+                name="image2"
+                value={props.soundbar.image2}
+                onChange={props.handleChange}
+            />
+            </Form.Group>
             <Form.Group controlId="formBasicEmail">
             <Form.Label>Channels</Form.Label>
             <Form.Control
@@ -78,6 +87,16 @@ const SoundbarForm = (props) => {
                 placeholder="Enter Rating"
                 name="rating"
                 value={props.soundbar.rating}
+                onChange={props.handleChange}
+            />
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+            <Form.Label>SKU</Form.Label>
+            <Form.Control
+                type="text"
+                placeholder="Enter SKU"
+                name="sku"
+                value={props.soundbar.sku}
                 onChange={props.handleChange}
             />
             </Form.Group>

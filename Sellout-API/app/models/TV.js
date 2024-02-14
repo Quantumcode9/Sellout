@@ -1,6 +1,27 @@
 const mongoose = require('mongoose');
 const soundbarSchema = require('./soundbar');
 
+
+
+const reviewSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
+
+
+
 const tvSchema = new mongoose.Schema({
   modelNumber: { type: String, required: true },
   size: Number,
@@ -31,11 +52,11 @@ const tvSchema = new mongoose.Schema({
   modelYear: Number,
   features: [String],
   inputs: [String],
-  reviews: {
+  reviews: [reviewSchema],
+  soundbars: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review'
-  },
-  soundbar: [soundbarSchema],
+    ref: 'Soundbar'
+}],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

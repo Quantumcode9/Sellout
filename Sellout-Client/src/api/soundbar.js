@@ -3,10 +3,27 @@ import axios from 'axios'
 
 
 
-export const createSoundbar = (newSoundbar) => {
+
+
+// export const createTV = (user, newTV) => {
+//     return axios({
+//         url: `${apiUrl}/tvs`,
+//         method: 'POST',
+//         headers: {
+//             Authorization: `Token token=${user.token}`
+//         },
+//         data: { tv: newTV }
+//     })
+// }
+
+
+export const createSoundbar = (user, newSoundbar) => {
     return axios({
         url: `${apiUrl}/soundbars`,
         method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
         data: { soundbar: newSoundbar }
     })
 }

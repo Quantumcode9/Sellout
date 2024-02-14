@@ -17,7 +17,6 @@ const ProductSchema = new mongoose.Schema({
   frequentlyPurchasedWith: [String],
   image: String,
   manufacturer: String,
-  mobileUrl: String,
   modelNumber: String,
   name: String,
   onlineAvailabilityText: String,
@@ -27,7 +26,6 @@ const ProductSchema = new mongoose.Schema({
   relatedProducts: [String],
   salePrice: Number,
   sku: Number,
-  thumbnailImage: String,
   type: String,
   upc: String,
   url: String

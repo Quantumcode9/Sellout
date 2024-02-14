@@ -2,19 +2,23 @@
 const mongoose = require('mongoose')
 
 
-const soundbar = new mongoose.Schema({
+const soundbarSchema = new mongoose.Schema({
     brand: {
         type: String, 
         enum: ['Samsung', 'LG', 'Sony', 'Bose', 'JBL', 'Sonos', 'other'], 
         required: true
     },
-    model: {
+    modelNumber: {
         type: String, 
         required: true
     },
     image: { 
         type: String, 
         required: true 
+    },
+    image2: {
+        type: String,
+        required: false
     },
     channels: {
         type: String,
@@ -28,10 +32,14 @@ const soundbar = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+    sku: {
+        type: String,
+        required: false
+    },
     rating: {
         type: Number,
         required: true
     }
 }, { timestamps: true })
 
-module.exports = soundbar
+module.exports = mongoose.model('Soundbar', soundbarSchema)

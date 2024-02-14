@@ -6,11 +6,14 @@ import messages from '../shared/AutoDismissAlert/messages'
 const SoundbarCreate = (props) => {
     const [soundbar, setSoundbar] = useState({
         brand: '',
-        model: '',
+        modelNumber: '',
         price: '',
         image: '',
+        image2: '',
         channels: '',
-        rating: ''
+        rating: '',
+        sku: '',
+        dolbyAtmos: false
     })
 
     const handleChange = (event) => {
@@ -23,17 +26,18 @@ const SoundbarCreate = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createSoundbar(soundbar)
+        createSoundbar(props.user, soundbar)
             .then(() => {
                 setSoundbar({
                     brand: '',
-                    model: '',
+                    modelNumber: '',
                     price: '',
                     image: '',
+                    image2: '',
                     channels: '',
                     rating: '',
+                    sku: '',
                     dolbyAtmos: false
-                   
                 })
 
 
@@ -64,3 +68,5 @@ const SoundbarCreate = (props) => {
 }
 
 export default SoundbarCreate
+
+

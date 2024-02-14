@@ -18,6 +18,10 @@ import TVShow from './components/tvs/TvShow'
 import TVCreate from './components/tvs/TvCreate'
 import Cart from './components/cart/Cart'
 import SoundbarCreate from './components/soundbar/SoundbarCreate';
+import SoundbarShow from './components/soundbar/SoundbarShow/SoundbarShow';
+import SoundbarIndex from './components/soundbar/SoundbarIndex';
+import SearchProducts from './components/shared/Search';
+
 
 const App = () => {
 
@@ -100,6 +104,18 @@ const App = () => {
 					}
 				/>
 				<Route 
+                path='/soundbars'
+                element={
+                <SoundbarIndex user={user} msgAlert={msgAlert}/>
+                }
+                />               
+				<Route 
+					path='/soundbars/:id'
+					element={
+						<SoundbarShow user={user} msgAlert={msgAlert}/>
+					}
+				/>
+				<Route 
 					path='/add-soundbar'
 					element={
 						<RequireAuth user={user}>
@@ -121,6 +137,9 @@ const App = () => {
 					   </RequireAuth>
 				   }
 				/>
+				<Route path='/search' render={() => (
+                <SearchProducts />
+                )} />
 			</Routes>
 
 			

@@ -17,13 +17,53 @@ const router = express.Router()
 
 
 
-router.post('/soundbars', removeBlanks, (req, res, next) => {
-    const soundbarData = req.body.soundbar
 
-    Soundbar.create(soundbarData)
-        .then(soundbar => res.status(201).json({ soundbar: soundbar.toObject() }))
-        .catch(next)
+
+router.post('/soundbars', requireToken, (req, res, next) => {
+	req.body.soundbar.owner = req.user.id
+	Soundbar.create(req.body.soundbar)
+		.then((soundbar) => {
+			res.status(201).json({ soundbar: soundbar.toObject(), message: 'Soundbar successfully created!' });
+		})
+		.catch(next)
+}
+
+)
+
+// INDEX
+// GET /soundbars
+router.get('/soundbars', (req, res, next) => {
+	Soundbar.find()
+		.then((soundbars) => {
+			return soundbars.map((soundbar) => soundbar.toObject())
+		})
+		.then((soundbars) => res.status(200).json({ soundbars: soundbars }))
+		.catch(next)
 })
+
+
+// router.get('/tvs/:id', (req, res, next) => {
+// 	TV.findById(req.params.id)
+//         .populate('owner')
+// 		.then(handle404)
+// 		.then((tv) => res.status(200).json({ tv: tv.toObject() }))
+// 		.catch(next)
+// })
+
+// SHOW
+// GET
+router.get('/soundbars/:id', (req, res, next) => {
+	Soundbar.findById(req.params.id)
+		.then(handle404)
+		.then((soundbar) => res.status(200).json({ soundbar: soundbar.toObject() }))
+		.catch(next)
+})
+
+
+
+
+
+
 
 
 // CREATE

@@ -21,6 +21,9 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    //
+    const [name, setName] = useState(''); 
+    //
 
     const navigate = useNavigate()
 
@@ -29,7 +32,7 @@ const SignUp = (props) => {
 
 		const { msgAlert, setUser } = props
 
-        const credentials = {email, password, passwordConfirmation}
+        const credentials = {name, email, password, passwordConfirmation}
 
 		signUp(credentials)
 			.then(() => signIn(credentials))
@@ -60,6 +63,19 @@ const SignUp = (props) => {
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Sign Up</h3>
                 <Form onSubmit={onSignUp}>
+                    <Form.Group controlId='name'> {/* Add this form group */}
+            <Form.Label>Name</Form.Label>
+                <Form.Control
+                required
+                type='text'
+                name='name'
+                value={name}
+                placeholder='Enter name'
+             onChange={e => setName(e.target.value)}
+            />
+            </Form.Group>
+
+
                     <Form.Group controlId='email'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control

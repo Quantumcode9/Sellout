@@ -52,10 +52,21 @@
     position: relative;
     line-height: 1.5;
 
+}
 
 
+.cart-button {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
 
-
+.cart-button:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
 /* .inverse-header .inverse-footer {
