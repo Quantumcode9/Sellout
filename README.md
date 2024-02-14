@@ -32,8 +32,8 @@ Best Buy's API for product data
 - *As a user, I want to search for TVs and laptops, so that I can find products that meet my needs.*
 - *As a user, I want to filter search results by specific criteria (e.g., brand, price range), so that I can narrow down the options.*
 - *As a user, I want to view detailed information about a product, so that I can make an informed decision before purchasing.*
-- *As a user, I want to add products to my cart and view my cart, so that I can manage my intended purchases.*
-- *As a user, I want to add accessories (e.g., soundbars for TVs) to my purchases, so that I can get all the necessary products at once.*
+- *As a user, I want to add products to my cart, view my cart, and have the ability to edit and remove items.*
+- *As a user, I want to add accessories to my purchases, so that I can get all the necessary products at once.*
 
 
 
