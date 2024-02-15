@@ -1,5 +1,4 @@
-
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap'
 import ReviewForm from '../shared/ReviewForm.jsx'
 import messages from '../shared/AutoDismissAlert/messages'
@@ -7,43 +6,47 @@ import { Button } from 'react-bootstrap'
 
 import { updateReview } from '../../api/tv' 
 
-const EditReviewModal = ({ tvId, user, show, handleClose, triggerRefresh, msgAlert, reviewToUpdate }) => {
-    const [review, setReview] = useState(reviewToUpdate || { rating: '', comment: '' });
-  
-    const [msgAlerts, setMsgAlerts] = useState([])
+const EditReviewModal = (props) => {
+  const { user, show, handleClose, triggerRefresh, msgAlert, tvId } = props;
+  const [updatedReview, setUpdatedReview] = useState({ rating: '', comment: '' });
+    const [msgAlerts, setMsgAlerts] = useState([]);
 
-    const handleChange = (event) => {
-        setReview({ ...review, [event.target.name]: event.target.value })
+  useEffect(() => {
+    if (props.review) {
+      setUpdatedReview(props.review);
     }
+  }, [props.review]);
 
-    const handleSubmit = (event) => {
-        if (!user) {
-            setMsgAlerts([...msgAlerts, { heading: 'Error', message: 'You must be logged in to create a review', variant: 'danger' }]);
-            return;
-          }
-      
-          updateReview(tvId, user, review) 
-          .then(() => {
-            triggerRefresh()
-            handleClose()
-            setMsgAlerts([...msgAlerts, messages.reviewSuccess])
-          })
-          .catch(() => {
-            handleClose()
-            setMsgAlerts([...msgAlerts, messages.reviewFailure])
-          })
-    }
+  const handleChange = (event) => {
+    setUpdatedReview({ ...updatedReview, [event.target.name]: event.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    updateReview(tvId, user, updatedReview)
+      .then(() => {
+        triggerRefresh();
+        handleClose();
+        setMsgAlerts([...msgAlerts, messages.updateReviewSuccess]);
+      })
+      .catch(() => {
+        handleClose();
+    
+
+        setMsgAlerts([...msgAlerts, messages.updateReviewFailure]);
+      });
+  };
 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Review</Modal.Title>
+                <Modal.Title>Edit Review</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <ReviewForm
-                    review={review}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
+                   review={updatedReview}
+                   handleChange={handleChange}
+                   handleSubmit={onSubmit}
                     heading='Edit Review'
                 />
             </Modal.Body>
@@ -54,5 +57,9 @@ const EditReviewModal = ({ tvId, user, show, handleClose, triggerRefresh, msgAle
             </Modal.Footer>
         </Modal>
     )
+
 }
+
+
 export default EditReviewModal
+    

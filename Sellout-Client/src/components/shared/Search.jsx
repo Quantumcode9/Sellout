@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { searchProducts } from '../../api/product';
+import { Link } from 'react-router-dom';
+import { Card, Button, Container } from 'react-bootstrap';
+// import { response } from 'express';
 
 
 const Search = () => {
     const [keyword, setKeyword] = useState(''); 
     const [products, setProducts] = useState([]);
-  
-    const handleSearch = (event) => { 
-      event.preventDefault();
-      searchProducts(keyword)
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        searchProducts(keyword)
         .then((response) => {
-          setProducts(response.data);
+            console.log('All this crap came through', response.data.products);
+            setProducts(response.data.products); 
         })
         .catch((error) => {
-          console.error('The error was:', error);
+            console.error('Failed to search products:', error);
         });
     };
+
+
+    
+
+
+
     return (
         <div>
             <form onSubmit={handleSearch}>
@@ -28,15 +38,23 @@ const Search = () => {
                 <button type="submit">Search</button>
             </form>
 
-            <div>
+            <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                 {products.map((product, index) => (
-                    <div key={index}>
-                        <h4>{product.name}</h4>
-                        <p>{product.salePrice}</p>
-                        <img src={product.image} alt={product.name} />
-                    </div>
+                    <Card key={index}>
+                    <Card.Header style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                            {product.name}
+                    </Card.Header>
+                        <Card.Text>${product.salePrice}</Card.Text>
+                        <Card.Img src={product.image} alt={product.name} />
+                        <Card.Footer style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                        <Link to={`/products/${product.id}`}>
+                            <Button variant="light"
+                            >View</Button>
+                        </Link>
+                    </Card.Footer>
+                    </Card>
                 ))}
-            </div>
+            </Container>
         </div>
     );
 };

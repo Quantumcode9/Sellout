@@ -79,7 +79,7 @@ export const createReview = (tvId, user, newReview) => {
     });
   };
 
-  // UPDATE REVIEW
+  // UPDATE REVIEW not working
     export const updateReview = (tvId, user, updatedReview) => {
         return axios({
         url: `${apiUrl}/tvs/${tvId}/reviews/${updatedReview._id}`,
@@ -87,17 +87,23 @@ export const createReview = (tvId, user, newReview) => {
         headers: {
             'Authorization': `Bearer ${user.token}`
         },
-        data: { review: updatedReview }
+        data: { 
+            review: {
+              ...updatedReview,
+              user: user._id, 
+              name: user.name 
+            } 
+          }
         });
-    };
+      };
 
-    // DELETE: Set a review free
-    export const removeReview = (tvId, user, reviewId) => {
+
+      export const deleteReview = (tvId, reviewId, user) => {
         return axios({
-        url: `${apiUrl}/tvs/${tvId}/reviews/${reviewId}`,
-        method: 'DELETE',
-        headers: {
+          url: `${apiUrl}/tvs/${tvId}/reviews/${reviewId}`,
+          method: 'DELETE',
+          headers: {
             'Authorization': `Bearer ${user.token}`
-        }
+          }
         });
-    };
+      };

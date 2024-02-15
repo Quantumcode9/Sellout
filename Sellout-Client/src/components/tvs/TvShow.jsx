@@ -12,6 +12,7 @@ import './TvShow.css'
 //import SoundbarShow from '../soundbars/SoundbarShow'
 import NewReviewModal from '../reviews/NewReviewModal'
 import EditReviewModal from '../reviews/EditReviewModel'
+import { deleteReview } from '../../api/tv'
 
 
 const soundbarCardContainerLayout = {
@@ -23,6 +24,8 @@ const soundbarCardContainerLayout = {
 const buildQuality = ['poor', 'fair', 'good', 'excellent'];
 
 
+
+
 const TVShow = (props) => {
     const { tvId } = useParams()
     const { user, msgAlert } = props
@@ -32,6 +35,7 @@ const TVShow = (props) => {
     const [editReviewModalShow, setEditReviewModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
+
 
     useEffect(() => {
         getOneTV(tvId)
@@ -65,6 +69,29 @@ const TVShow = (props) => {
             })
     }
 
+    const refreshTvShow = () => {
+        getOneTV(tvId)
+            .then((res) => {
+                setTV(res.data.tv);
+            })
+            .catch((error) => {
+                console.error('Error getting TV show:', error);
+            });
+    };
+    
+    const handleDeleteReview = (reviewId) => {
+        if (window.confirm('Are you sure you want to delete this review?')) { 
+          deleteReview(tvId, reviewId, user)
+            .then(() => {
+              refreshTvShow();
+            })
+            .catch((error) => {
+              console.error('Error deleting review:', error);
+            });
+        }
+      };
+    
+
     const [cartItems, setCartItems] = useState([])
 
     const handleAddToCart = (tv) => {
@@ -89,7 +116,7 @@ const TVShow = (props) => {
     }; 
 
     const [reviewModalShow, setReviewModalShow] = useState(false)
-    const [reviewToEdit, setReviewToEdit] = useState(null)
+    const [updatedReview, setUpdatedReview] = useState(null)
 
 
     
@@ -319,20 +346,52 @@ const TVShow = (props) => {
 
                     </Card.Header>
                     <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-  <Card.Text>
-    {tv.reviews.map((review, index) => (
-      <div key={index}>
-        <strong>{review.name}</strong>: {review.comment}
-        <br />
-        Rating:  <span style={{ color: review.rating >= 8 ? 'green' : review.rating >= 6 ? 'yellow' : 'red' }}><strong>{review.rating}/10</strong></span>
-        <hr />
-        <Button onClick={() => setEditReviewModalShow(review)}>Edit Review</Button>
-        <hr />
-      </div>
+                    <Card.Text>
+                    {tv.reviews.map((review, index) => (
+                    <div key={review._id}> 
+                        <strong>{review.name}</strong>: {review.comment}
+                        <br />
+                        Rating: <span style={{ color: review.rating >= 8 ? 'green' : review.rating >= 6 ? 'yellow' : 'red' }}>
+                        <strong>{review.rating}/10</strong>
+                        </span>
+                        <hr />
+                        {user && review.user && user._id === review.user 
+                    ? (
+                            <>
+                            <Button
+                                className='m-2'
+                                variant='warning'
+                                onClick={() => {
+                                    console.log(review);
+                                    setUpdatedReview(review._id);
+                            
+                                    setEditReviewModalShow(true)
+                        
+                                }}
+                            >
+                                Edit Review
+                            </Button>
+                            <Button
+                                className='m-2'
+                                variant='danger'
+                                onClick={() => handleDeleteReview(review._id)}
+                            >
+                                Delete Review
+                            </Button>
+                            </>
 
-    ))}
-  </Card.Text>
-</Card.Body>
+
+                        )
+                        : null
+                    }
+                        <hr />
+             
+    </div>
+                    ))}
+                </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                </Card.Footer>
                 </Card>
             
             </Col>
@@ -360,16 +419,16 @@ const TVShow = (props) => {
                 handleClose={() => setReviewModalShow(false)}
                 triggerRefresh={() => setUpdated(prev => !prev)}
             />
-            <EditReviewModal
-            tvId={tv._id}
-            tv={tv}
-            user={user}
-            reviewToUpdate={reviewToEdit}
-            show={editReviewModalShow}
-            handleClose={() => setEditReviewModalShow(false)}
-            triggerRefresh={() => setUpdated(prev => !prev)}
-            msgAlert={msgAlert} 
-            />
+           <EditReviewModal
+                tvId={tv._id}
+                tv={tv}
+                user={user}
+                updatedReview={updatedReview}
+                show={editReviewModalShow}
+                handleClose={() => setEditReviewModalShow(false)}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+                msgAlert={msgAlert}
+/>
         </>
     )
 }

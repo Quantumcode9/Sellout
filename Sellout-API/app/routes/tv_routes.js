@@ -106,7 +106,6 @@ router.delete('/tvs/:id', requireToken, (req, res, next) => {
 
 
 
-
 // CREATE REVIEW
 
 router.post('/tvs/:id/reviews', requireToken, (req, res, next) => {
@@ -123,25 +122,51 @@ router.post('/tvs/:id/reviews', requireToken, (req, res, next) => {
 	  .catch(next);
   });
 
+// UPDATE REVIEW NOT WORKING
 
-  // UPDATE REVIEW
-router.patch('/tvs/:tvId/reviews/:reviewId', requireToken, removeBlanks, (req, res, next) => {
-	const { tvId, reviewId } = req.params;
-  
+router.patch('/tvs/:tvId/reviews/:reviewId', requireToken, (req, res, next) => {
+    const { tvId, reviewId } = req.params;
+    const reviewUpdates = req.body.review; 
+
+    TV.findById(tvId)
+        .then(tv => {
+            if (!tv) {
+                return res.status(404).json({ message: "TV not found" });
+            }
+            const review = tv.reviews.find(r => r._id.toString() === reviewId);
+            if (!review) {
+                return res.status(404).json({ message: "Review not found" });
+            }
+
+            Object.keys(reviewUpdates).forEach(key => {
+                review[key] = reviewUpdates[key];
+            });
+
+            return tv.save();
+        })
+        .then(() => res.status(200).json({ message: "Review updated successfully" }))
+        .catch(next);
+});
+
+
+
+  // DELETE REVIEW
+
+  router.delete('/tvs/:tvId/reviews/:reviewId', requireToken, (req, res, next) => {
+    const { tvId, reviewId } = req.params;
+    
 	TV.findById(tvId)
-	  .then(handle404)
-	  .then(tv => {
-		const theReview = tv.reviews.id(reviewId);
-		requireOwnership(req, theReview);
-  
-		theReview.set(req.body.review);
-  
-		return tv.save();
-	  })
-	  .then(() => res.sendStatus(204))
-	  .catch(next);
-  }
-  );
+    .then(tv => {
+        if (!tv) {
+            return res.status(404).json({ message: "TV not found" });
+        }
+        tv.reviews = tv.reviews.filter(r => r._id.toString() !== reviewId);
+        
+        return tv.save();
+    })
+    .then(() => res.status(204).send())
+    .catch(next);
+});
 
 
 
