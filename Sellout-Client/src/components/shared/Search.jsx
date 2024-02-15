@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { searchProducts } from '../../api/product';
 import { Link } from 'react-router-dom';
-import { Card, Button, Container } from 'react-bootstrap';
+import { Card, Button, Container, Carousel, Form } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 // import { response } from 'express';
+
+
+
+
+
 
 
 const Search = () => {
@@ -21,40 +29,69 @@ const Search = () => {
         });
     };
 
+    const navigate = useNavigate();
 
-    
-
+    const handleViewClick = (productId) => {
+      axios.get(`/api/products/${productId}`)
+        .then(response => {
+          if (response.status === 404) {
+            const product = products.find(product => product.id === productId);
+            axios.post('/api/products', { product })
+              .then(() => {
+                navigate(`/products/${productId}`);
+              })
+              .catch(error => {
+                console.error('Failed to create product:', error);
+              });
+          } else {
+            
+            navigate(`/products/${productId}`);
+          }
+        })
+        .catch(error => {
+          console.error('Failed to get product:', error);
+        });
+    };
 
 
     return (
         <div>
-            <form onSubmit={handleSearch}>
-                <input
-                    type="text"
-                    value={keyword}
-                    onChange={(e) => setKeyword(e.target.value)}
-                    placeholder="Search"
-                />
-                <button type="submit">Search</button>
-            </form>
+          <div>
+  <Form onSubmit={handleSearch}>
+    <Form.Group controlId="searchKeyword" style={{ width: '50%', margin: 'auto' }}>
+      <Form.Control
+        type="text"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        placeholder="Search"
+      />
+    </Form.Group>
+    <Button variant="dark" type="submit">
+      Search
+    </Button>
+  </Form>
+</div>
 
-            <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                {products.map((product, index) => (
-                    <Card key={index}>
-                    <Card.Header style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-                            {product.name}
-                    </Card.Header>
-                        <Card.Text>${product.salePrice}</Card.Text>
-                        <Card.Img src={product.image} alt={product.name} />
-                        <Card.Footer style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-                        <Link to={`/products/${product.id}`}>
-                            <Button variant="light"
-                            >View</Button>
-                        </Link>
-                    </Card.Footer>
-                    </Card>
-                ))}
-            </Container>
+          
+<Carousel>
+  {products.map((product, index) => (
+    <Carousel.Item key={index}>
+      <Card style={{ transform: 'scale(0.6)' }}>
+        <Card.Header style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+          {product.name}
+        </Card.Header>
+        <Card.Text style={product.salePrice < product.regularPrice ? { textDecoration: 'line-through' } : {}}>${product.regularPrice}</Card.Text>
+        {product.salePrice < product.regularPrice && <Card.Text style={{ color: 'red' }}> ${product.salePrice}</Card.Text>}
+        <Card.Img src={product.image} alt={product.name} />
+        <Card.Footer style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+        <Button variant="light" onClick={() => handleViewClick(product.id)}>View</Button>
+        </Card.Footer>
+      </Card>
+    </Carousel.Item>
+  ))}
+</Carousel>
+
+        
         </div>
     );
 };

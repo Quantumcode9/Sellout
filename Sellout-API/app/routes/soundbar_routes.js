@@ -16,9 +16,6 @@ const router = express.Router()
 ///////////////////////////////////////////////////////
 
 
-
-
-
 router.post('/soundbars', requireToken, (req, res, next) => {
 	req.body.soundbar.owner = req.user.id
 	Soundbar.create(req.body.soundbar)
@@ -61,27 +58,6 @@ router.get('/soundbars/:id', (req, res, next) => {
 
 
 
-
-
-
-
-
-// CREATE
-// POST 
-// router.post('/soundbars/:tvId', removeBlanks, (req, res, next) => {
-//     const soundbar = req.body.soundbar
-//     const tvId = req.params.tvId
-
-// 	TV.findById(tvId)
-//         .then(handle404)
-// 		.then((tv) => {
-//             tv.soundbars.push(soundbar)
-
-// 			return tv.save()
-// 		})
-//         .then(tv => res.status(201).json({ tv: tv }))
-// 		.catch(next)
-// })
 
 // UPDATE
 router.patch('/soundbars/:tvId/:soundbarId', requireToken, removeBlanks, (req, res, next) => {

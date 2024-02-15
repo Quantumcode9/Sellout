@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 // import TVForm from './components/shared/TVForm';
 // import React, { Component, Fragment } from 'react'

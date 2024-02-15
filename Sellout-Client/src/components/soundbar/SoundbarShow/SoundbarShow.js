@@ -5,6 +5,7 @@ import { removeSoundbar, getSoundbar } from '../../../api/soundbar'
 import messages from '../../shared/AutoDismissAlert/messages'
 import EditSoundbarModal from '../EditSoundbarModal'
 import { useParams } from 'react-router-dom'
+import { addToCart } from '../../../api/cart'
 import './SoundbarShow.css'
 
 const SoundbarShow = (props) => {
@@ -56,6 +57,26 @@ const SoundbarShow = (props) => {
             });
             });
     };
+    const [cartItems, setCartItems] = useState([])
+    const handleAddToCart = () => {
+      addToCart(user, soundbar._id)
+        .then(response => {
+          msgAlert({
+            heading: 'Added to Cart!',
+            message: 'Added to cart successfully!',
+            variant: 'success'
+        })
+        setCartItems(response.data.cartItems)
+        })
+        .catch(() => {
+          msgAlert({
+            heading: 'Oh no!',
+            message: messages.generalError,
+            variant: 'danger'
+        })
+        })
+    }
+
   
     if (!soundbar) {
       return <Container className="mt-5">Loading...</Container>;
@@ -80,20 +101,20 @@ const SoundbarShow = (props) => {
     <br />
   
 
-        <Container className='m-2'>
+      <Container className='m-2'>
       <Row>
-                <Col md={6}>
-                <Card>
-                <Card.Header style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-                    {soundbar.brand} { soundbar.modelNumber}
-                    </Card.Header>
-                    <Card.Body>
-                        <Card.Text>
-                            <img src={soundbar.image} alt={soundbar.modelNumber} className='soundbar-image'/>
-                        </Card.Text>
-                    </Card.Body>
-                    <Card.Footer style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-                    <Container className='m-2'>
+        <Col md={6}>
+        <Card>
+        <Card.Header style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+            {soundbar.brand} { soundbar.modelNumber}
+            </Card.Header>
+            <Card.Body>
+                <Card.Text>
+              <img src={soundbar.image} alt={soundbar.modelNumber} className='soundbar-image'/>
+                </Card.Text>
+            </Card.Body>
+            <Card.Footer style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+        <Container className='m-2'>
         <Button variant='primary' onClick={() => setEditModalShow(true)}>Edit</Button>
         <Button variant='danger' onClick={() => removeSoundbar(user, soundbar._id)
           .then(() => {
@@ -111,6 +132,10 @@ const SoundbarShow = (props) => {
               variant: 'danger'
             })
           })}>Delete</Button>
+        <Button variant='success' onClick={() => handleAddToCart(soundbar._id)
+        }>Add to Cart</Button>
+        
+        
       </Container>
       <EditSoundbarModal
         show={editModalShow}
@@ -121,7 +146,7 @@ const SoundbarShow = (props) => {
         triggerRefresh={triggerRefresh}
       />
               
- </Card.Footer>
+</Card.Footer>
         </Card>
         </Col>
         <Col md={6}>
@@ -138,8 +163,7 @@ const SoundbarShow = (props) => {
                     Rating: <span style={{ color: soundbar.rating >= 8 ? 'green' : soundbar.rating >= 6 ? 'yellow' : 'red' }}><strong>{soundbar.rating}/10</strong></span>
                     </p>
                     <p>Dolby Atmos: <strong>{soundbar.dolbyAtmos ? 'Yes' : 'No'}</strong></p>
-
-              
+            
             </Card.Body>
         </Card>
         </Col>

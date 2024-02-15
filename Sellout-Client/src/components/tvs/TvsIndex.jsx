@@ -2,9 +2,10 @@ import {useState, useEffect} from 'react'
 import { getAllTVs } from "../../api/tv"
 
 import LoadingScreen from '../shared/LoadingScreen'
-import { Card } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import messages from '../shared/AutoDismissAlert/messages'
+import './TvsIndex.css'
 
 
 const cardContainerLayout = {
@@ -12,6 +13,10 @@ const cardContainerLayout = {
     flexFlow: 'row wrap',
     justifyContent: 'center'
 }
+
+
+
+
 
 const TVsIndex = (props) => {
     const [tvs, setTVs] = useState(null)
@@ -44,21 +49,42 @@ const TVsIndex = (props) => {
         return <LoadingScreen />
 
     } else if (tvs.length === 0) {
-        return <p>No tvs yet, go add some!</p>
+        return <p>No tvs yet</p>
     }
 
+    const cardStyle = {
+        width: '30%',
+        '@media (minWidth: 576px)': {
+            width: '50%' 
+        },
+        margin: '10px',
+        backgroundColor: 'white',
+        color: 'black'
+    }
+
+
+
+
+
     const tvCards = tvs.map(tv => (
-        <Card key={tv.id} style={{ width: '30%', margin: 5 }} >
-            <Card.Header>{tv.modelNumber}</Card.Header>
-            <img src={tv.image} alt={tv.modelNumber} style={{ width: '100%' }} />
-            <Card.Body>
-                <Card.Text>
-                    <Link to={`/tvs/${tv._id}`} className='btn btn-info'>
-                        View {tv.modelNumber}
-                    </Link>
-                </Card.Text>
-            </Card.Body>
-        </Card>
+        <Card key={tv.id} style={cardStyle}>
+<Card.Header style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+{tv.modelNumber}</Card.Header>
+<img src={tv.image} alt={tv.modelNumber} style={{ width: '100%', marginTop: 6 }} />
+<Card.Body>
+    <Card.Text className="h5">
+        ${tv.price}.99
+    </Card.Text>
+
+        
+</Card.Body>
+
+<Card.Footer style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+    <Link to={`/tvs/${tv._id}`}>
+        <Button variant="dark">View</Button>
+    </Link>
+    </Card.Footer>
+</Card>
     ))
 
     return (

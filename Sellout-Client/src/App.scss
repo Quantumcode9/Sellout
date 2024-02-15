@@ -15,6 +15,11 @@
 
 
 
+
+
+
+
+
 .App-link {
   color: #61dafb;
 }
@@ -31,7 +36,8 @@
 
 .App-body {
   padding: 20px;
-  background-color: #000000;
+  background-color: rgba(0,0,0,0.85);
+  /* background-color: #000000; */
   min-height: 100vh;
   justify-content: center;
   text-align: center;
@@ -42,3 +48,26 @@
   width: 100%;
 }
 
+
+
+.card-img {
+  height: 200px;
+  object-fit: contain;
+}
+
+@media (min-width: 576px) {
+  .card-img {
+    height: 300px;
+  }
+}
+
+
+.checkout-button {
+  background-color: #40E0D0;
+  color: white;
+  font-family: 'Lucida Sans ,Lucida Sans Regular';
+}
+
+.checkout-button:hover {
+  background-color: #cefcfa; 
+}

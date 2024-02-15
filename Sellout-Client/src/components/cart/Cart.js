@@ -22,18 +22,22 @@ const CartPage = ({ user }) => {
         //add message later
         });
     };
+
+    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   
     if (!user) {
       return <div>Loading...</div>;
     }
   
     return (
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div>
-        <h1>Your Cart</h1>
+        <h2>Your Cart</h2>
+        <hr/>
         {cartItems.map(item => (
           <Card key={item._id} style={{ width: '18rem' }}>
             <Card.Img variant="top" src={item.image} />
-            <Card.Body>
+            <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>
                 Price: {item.price}
@@ -50,6 +54,12 @@ const CartPage = ({ user }) => {
             </Card.Body>
           </Card>
         ))}
+      </div>
+      <div>
+        <h2>Total Price: ${totalPrice}</h2>
+        <hr/>
+        <Button variant="btn btn-lg btn-outline-success">Checkout</Button>
+      </div>
       </div>
     );
   }

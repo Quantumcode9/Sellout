@@ -22,7 +22,7 @@ const router = express.Router()
 
 
 
-  
+
 
 router.post('/tvs', requireToken, (req, res, next) => {
 	req.body.tv.owner = req.user.id

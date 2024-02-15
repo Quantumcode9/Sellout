@@ -12,23 +12,15 @@ const FeaturesSchema = new mongoose.Schema({
 
 const ProductSchema = new mongoose.Schema({
   details: [DetailsSchema],
-  dollarSavings: Number,
   features: [FeaturesSchema],
-  frequentlyPurchasedWith: [String],
   image: String,
   manufacturer: String,
   modelNumber: String,
   name: String,
-  onlineAvailabilityText: String,
-  onSale: Boolean,
-  percentSavings: String,
   regularPrice: Number,
-  relatedProducts: [String],
   salePrice: Number,
   sku: Number,
-  type: String,
   upc: String,
-  url: String
 });
 
 

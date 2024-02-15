@@ -81,15 +81,15 @@ const TVShow = (props) => {
     
     const handleDeleteReview = (reviewId) => {
         if (window.confirm('Are you sure you want to delete this review?')) { 
-          deleteReview(tvId, reviewId, user)
+        deleteReview(tvId, reviewId, user)
             .then(() => {
-              refreshTvShow();
+            refreshTvShow();
             })
             .catch((error) => {
-              console.error('Error deleting review:', error);
+            console.error('Error deleting review:', error);
             });
         }
-      };
+    };
     
 
     const [cartItems, setCartItems] = useState([])
@@ -146,7 +146,7 @@ const TVShow = (props) => {
         <>
         <Container className='hero'>
             <Card>
-                    <Card.Header className='hero-head'>
+            <Card.Header style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                     {tv.brand} { tv.modelNumber}
                     </Card.Header>
                     <Card.Body>
@@ -154,7 +154,7 @@ const TVShow = (props) => {
                     <img src={tv.image2 ? tv.image2 : tv.image} alt={tv.modelNumber} className='tv-image'/>
 
                     </Card.Body>
-                    <Card.Footer className='hero-foot'>
+                    <Card.Footer style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                     {tv.brand} { tv.modelNumber}
                     </Card.Footer>
                 </Card>
@@ -164,7 +164,7 @@ const TVShow = (props) => {
             <Row>
                 <Col md={6}>
                 <Card>
-                    <Card.Header style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                    <Card.Header style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                     {tv.brand} { tv.modelNumber}
                     </Card.Header>
                     <Card.Body>
@@ -172,7 +172,7 @@ const TVShow = (props) => {
                             <img src={tv.image} alt={tv.modelNumber} className='tv-image'/>
                         </Card.Text>
                     </Card.Body>
-                    <Card.Footer style={{ color: 'white', backgroundColor: 'black', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                    <Card.Footer style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                 
                         {
 
@@ -218,60 +218,60 @@ const TVShow = (props) => {
                 <Col md={6}>
                 <Card>
                 <Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-          Features
+        Features
         </Card.Header>
-        <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-          <ul>
+        <Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+        <ul>
             {tv.features}
-          </ul>
+        </ul>
         </Card.Body>
-      </Card>
-      <br/>
-      <Card className="commercial-details">
-  <Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+    </Card>
+    <br/>
+    <Card className="commercial-details">
+<Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
     Commercial Details
-  </Card.Header>
-  <Card.Body style={{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+</Card.Header>
+<Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
     <Row>
-      <Col>
+    <Col>
         <Card.Text>
-          Brand:<strong> {tv.brand}</strong>
+        Brand:<strong> {tv.brand}</strong>
         </Card.Text>
-      </Col>
-      <Col>
+    </Col>
+    <Col>
         <Card.Text>
-          SKU:<strong> {tv.sku}</strong>
+        SKU:<strong> {tv.sku}</strong>
         </Card.Text>
-      </Col>
+    </Col>
     </Row>
     <hr/>
     <Row>
-      <Col>
+    <Col>
         <Card.Text>
-          Price:<strong> ${tv.price}</strong>
+        Price:<strong> ${tv.price}</strong>
         </Card.Text>
-      </Col>
-      <Col>
+    </Col>
+    <Col>
         <Card.Text>
-          Model Year:<strong> {tv.modelYear}</strong>
+        Model Year:<strong> {tv.modelYear}</strong>
         </Card.Text>
-      </Col>
+    </Col>
     </Row>
     <hr/>
-  </Card.Body>
+</Card.Body>
 </Card>
-      </Col>
+    </Col>
         </Row>
 
         
                 <Row>
     <Col md={6}>
                 <Card>
-                <Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                <Card.Header style={{ color: 'black', backgroundColor: `rgba(255,255,255,0.80)`, fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                         Details
                     </Card.Header>
-    <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
-        <Card.Text className="tech-specs">
+    <Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+        <Card.Text className="">
             Size:<strong> {tv.size}"</strong><hr/> 
             Type:<strong> {tv.type}</strong> <hr/>
             Refresh Rate:<strong> {tv.refreshRate}hz</strong><hr/>
@@ -292,7 +292,7 @@ const TVShow = (props) => {
             Anti-Glare:<strong> {tv.antiGlare ? 'Yes' : 'No'}</strong><hr/>
             VRR:<strong> {tv.vrr ? 'Yes' : 'No'}</strong><hr/>
             SKU:<strong> {tv.sku}</strong><hr/> 
-      </Card.Text>
+        </Card.Text>
     </Card.Body>
 </Card>
                 </Col>
@@ -301,7 +301,7 @@ const TVShow = (props) => {
                     <Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                         Reviews
                     </Card.Header>
-                    <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                    <Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                         <Card.Text>
                             Overall Rating: <span style={{ color: tv.overallRating >= 8 ? 'green' : tv.overallRating >= 6 ? 'yellow' : 'red' }}><strong>{tv.overallRating}/10</strong></span>
                             <hr/>
@@ -323,7 +323,7 @@ const TVShow = (props) => {
                     <Card.Header style={{ color: 'black', backgroundColor: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                         User Reviews
                     </Card.Header>
-                    <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                    <Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.95)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                     <Card.Text>
                     Seen the {tv.brand} {tv.modelNumber}? 
                     <hr/>
@@ -345,7 +345,7 @@ const TVShow = (props) => {
                         Comments
 
                     </Card.Header>
-                    <Card.Body style= {{ backgroundColor: 'black', color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
+                    <Card.Body style= {{ backgroundColor: `rgba(0,0,0,0.85)`, color: 'white', fontFamily: 'Lucida Sans ,Lucida Sans Regular' }}>
                     <Card.Text>
                     {tv.reviews.map((review, index) => (
                     <div key={review._id}> 
@@ -385,8 +385,7 @@ const TVShow = (props) => {
                         : null
                     }
                         <hr />
-             
-    </div>
+                    </div>
                     ))}
                 </Card.Text>
                 </Card.Body>
@@ -419,7 +418,7 @@ const TVShow = (props) => {
                 handleClose={() => setReviewModalShow(false)}
                 triggerRefresh={() => setUpdated(prev => !prev)}
             />
-           <EditReviewModal
+            <EditReviewModal
                 tvId={tv._id}
                 tv={tv}
                 user={user}

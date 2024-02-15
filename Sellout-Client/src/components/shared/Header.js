@@ -19,7 +19,9 @@ const authenticatedOptions = (
 			</Link>
 		</Nav.Item>
 		<Nav.Item className='m-2'>
-		<Link to="/soundbars">Soundbars</Link>
+		<Link to='/soundbars' style={linkStyle}>
+			    Soundbars
+		</Link>
 		</Nav.Item>
 	
 		<Nav.Item className='m-2'>
@@ -37,6 +39,12 @@ const authenticatedOptions = (
 				Search
 			</Link>
 		</Nav.Item>
+		<Nav.Item className='m-2'>
+			<Link to='/cart' style={linkStyle}>
+				Your Cart
+			</Link>
+		</Nav.Item>
+
 	</>
 )
 
