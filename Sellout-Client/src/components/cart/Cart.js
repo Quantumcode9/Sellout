@@ -42,7 +42,7 @@ const CartPage = ({ user }) => {
               <Card.Text>
                 Price: {item.price}
               </Card.Text>
-              <Button variant="dark">Go to item</Button>
+              <Button variant="dark">Go to page</Button>
               {/* Delete From Cart */}
               <Button
                 className='m-2'

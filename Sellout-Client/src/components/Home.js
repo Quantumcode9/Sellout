@@ -1,7 +1,6 @@
 import TVsIndex from './tvs/TvsIndex'
 import { useState, useEffect } from 'react'
-import React from "react"
-import './Home.css'
+import React from "react";
 import { getLaptops } from '../api/product'
 import { Carousel, Card, Button } from 'react-bootstrap'
 

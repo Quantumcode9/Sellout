@@ -39,13 +39,6 @@ router.get('/soundbars', (req, res, next) => {
 })
 
 
-// router.get('/tvs/:id', (req, res, next) => {
-// 	TV.findById(req.params.id)
-//         .populate('owner')
-// 		.then(handle404)
-// 		.then((tv) => res.status(200).json({ tv: tv.toObject() }))
-// 		.catch(next)
-// })
 
 // SHOW
 // GET

@@ -30,17 +30,7 @@ router.get('/products/:id', (req, res, next) => {
     .catch(next)
 })
 
-// router.get('/laptops', (req, res, next) => {
-//   axios.get(`https://api.bestbuy.com/v1/products(onlineAvailability=true&condition=new&(categoryPath.id=abcat0502000))?apiKey=${process.env.BEST_BUY_API_KEY}&&sort=dollarSavings.asc&show=bestSellingRank,dollarSavings,features.feature,image,manufacturer,modelNumber,name,regularPrice,salePrice,sku,upc&facet=bestSellingRank,20&pageSize=3&page=1&format=json
-//   `) 
-//     .then((response) => {
-//       res.status(200).json({ products: response.data.products })
-//     })
-//     .catch(next)
-// }
-// )
 
-// POST /products
 
 router.post('/products', (req, res, next) => {
   const productData = req.body.product;
