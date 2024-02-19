@@ -19,7 +19,8 @@ const CartPage = ({ user }) => {
           setCartItems(cartItems.filter(item => item._id !== tvId));
         })
         .catch(err => {
-        //add message later
+     
+
         });
     };
   

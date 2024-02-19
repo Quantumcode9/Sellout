@@ -19,7 +19,9 @@ const messages = {
 	// delete soundbar success
 	deleteSoundbarSuccess: 'We threw the soundbar away!',
 	// general error
-	generalError: 'Something went wrong... Try Again'
+	generalError: 'Something went wrong... Try Again',
+
+	duplicateItem: 'This item is already in your cart'
 }
 
 module.exports = messages

@@ -27,6 +27,7 @@
   },
   "keywords": [],
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2",
     "nodemon": "^3.0.3"
   }
 }
